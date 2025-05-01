@@ -19,9 +19,9 @@
     <input id="input" autocomplete="off" placeholder="Type a message..." /><button>Send</button>
   </form>
 
-  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://applied-programming.onrender.com/socket.io/socket.io.js"></script>
   <script>
-    const socket = io("https://your-chat-server.onrender.com");
+    const socket = io("https://applied-programming.onrender.com");
 
     let username = prompt("Enter your username:");
     if (!username) username = "Anonymous";
