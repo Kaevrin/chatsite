@@ -4,17 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat App</title>
-    <style>
-      body { font-family: Arial; margin: 20px; }
-      #messages { list-style-type: none; padding: 0; }
-      #messages li { padding: 5px 10px; }
-      form { display: flex; }
-      input { flex: 1; padding: 10px; }
-    </style>
+    <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-    <h2>Chat</h2>
-  <ul id="messages"></ul>
+  <h2>Chat</h2>
+  <div id="message-box">
+    <ul id="messages"></ul>
+  </div>
   <form id="form">
     <input id="input" autocomplete="off" placeholder="Type a message..." /><button>Send</button>
   </form>
@@ -30,6 +26,7 @@
     socket.on('welcome message', function(data) {
     console.log("Received welcome message", data); // ✅ debug
     const item = document.createElement('li');
+    item.classList.add('message-content');
     item.textContent = `${data.username} has joined the chat`;
     messages.appendChild(item);
     });
@@ -48,8 +45,20 @@
 
     socket.on('chat message', function(data) {
       const item = document.createElement('li');
-      item.textContent = `${data.username}: ${data.message}`;
+      item.classList.add('message');
+
+      const nameDiv = document.createElement('div');
+      nameDiv.classList.add('message-username');
+      nameDiv.textContent = data.username;
+
+      const contentDiv = document.createElement('div');
+      contentDiv.classList.add('message-content');
+      contentDiv.textContent = data.message;
+
+      item.appendChild(nameDiv);
+      item.appendChild(contentDiv);
       messages.appendChild(item);
+
       window.scrollTo(0, document.body.scrollHeight);
     });
   </script>
