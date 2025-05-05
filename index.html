@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
+  <!-- Begin code for controlling page appearance -->
   <h2>Chat</h2>
   <div id="message-box">
     <ul id="messages"></ul>
@@ -14,8 +15,12 @@
   <form id="form">
     <input id="input" autocomplete="off" placeholder="Type a message..." /><button>Send</button>
   </form>
+<!-- End page appearance-->
 
+<!-- Call on server code-->
   <script src="https://applied-programming.onrender.com/socket.io/socket.io.js"></script>
+  
+  <!--Local scripts for sending to server-->
   <script>
     const socket = io("https://applied-programming.onrender.com");
 
@@ -28,7 +33,10 @@
     const item = document.createElement('li');
     item.classList.add('message-content');
     item.textContent = `${data.username} has joined the chat`;
-    messages.appendChild(item);
+    const messageWrapper = document.createElement('div');
+    messageWrapper.classList.add('message-wrapper');
+    messageWrapper.appendChild(item);
+    messages.appendChild(messageWrapper);
     });
     
     const form = document.getElementById('form');
@@ -44,8 +52,17 @@
     });
 
     socket.on('chat message', function(data) {
+      
       const item = document.createElement('li');
       item.classList.add('message');
+
+      const avatar = document.createElement('img');
+      avatar.classList.add('user-avatar');
+      avatar.src = 'https://picsum.photos/50';
+      avatar.alt = 'user avatar';
+
+      const messageWrapper = document.createElement('div');
+      messageWrapper.classList.add('message-wrapper');
 
       const nameDiv = document.createElement('div');
       nameDiv.classList.add('message-username');
@@ -57,7 +74,10 @@
 
       item.appendChild(nameDiv);
       item.appendChild(contentDiv);
-      messages.appendChild(item);
+
+      messageWrapper.appendChild(avatar);
+      messageWrapper.appendChild(item);
+      messages.appendChild(messageWrapper);
 
       window.scrollTo(0, document.body.scrollHeight);
     });
