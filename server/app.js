@@ -17,7 +17,13 @@ const io = new Server(server, {
 
 
 // Serve static files (like your frontend)
-app.use(express.static('public'));
+app.use(express.json());
+app.use(routes);
+
+app.get("/", (request, response) => {
+  response.cookie("Hello", "world", {maxAge: 60000});
+  response.status(201).send({ msg: "Hello"});
+})
 
 // Socket.IO logic
 io.on('connection', (socket) => {
