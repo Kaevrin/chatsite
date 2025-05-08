@@ -25,7 +25,7 @@ io.on('connection', (socket) => {
   let userId = null;
   let username = "Anonymous";
 
-  socket.on('set user info', (data) => {
+  socket.on('set user info', (username, userId) => {
     socket.username = username;
     socket.userId = userId;
     console.log(`User ${username} (${userId}) has joined`);
