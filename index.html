@@ -24,6 +24,9 @@
   <script>
     let userId = localStorage.getItem('userId');
     let username = localStorage.getItem('username');
+    const form = document.getElementById('form');
+    const input = document.getElementById('input');
+    const messages = document.getElementById('messages');
     
     if (!userId) {
       userId = crypto.randomUUID();
@@ -37,7 +40,10 @@
 
     const socket = io("https://applied-programming.onrender.com", { withCredentials: true });
 
-    socket.emit('set user info', {username, userId});
+    socket.on('connect', () => {
+      socket.emit('set user info', { username, userId });
+    });
+
 
     socket.on('welcome message', function(data) {
     console.log("Received welcome message", data); // ✅ debug
@@ -50,9 +56,7 @@
     messages.appendChild(messageWrapper);
     });
     
-    const form = document.getElementById('form');
-    const input = document.getElementById('input');
-    const messages = document.getElementById('messages');
+
 
     form.addEventListener('submit', function(e) {
       e.preventDefault();
