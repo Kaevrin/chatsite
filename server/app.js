@@ -18,6 +18,12 @@ const io = new Server(server, {
 
 // Serve static files (like your frontend)
 app.use(cookieParser());
+const cors = require('cors');
+
+app.use(cors({
+  origin: 'https://kaevrin.github.io',
+  credentials: true
+}));
 
 app.get('/', function(req, resp) {
   resp.cookie('myFirstCookie', 'looks good', {

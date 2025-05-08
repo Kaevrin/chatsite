@@ -24,7 +24,7 @@
   <script>
     fetch("https://applied-programming.onrender.com/", {
     method: "GET",
-    credentials: "include" // Crucial for receiving cookies cross-origin
+    credentials: "include", // Crucial for receiving cookies cross-origin
     })
     .then(res => console.log("Cookie setup response:", res.status))
     .catch(err => console.error("Cookie setup error:", err));
