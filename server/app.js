@@ -20,7 +20,12 @@ const io = new Server(server, {
 app.use(cookieParser());
 
 app.get('/', function(req, resp) {
-  resp.cookie('myFirstCookie', 'looks good', { maxAge: 60000 })
+  resp.cookie('myFirstCookie', 'looks good', {
+    maxAge: 60000,
+    sameSite: 'None',
+    secure: true
+});
+  resp.send('Cookie sent');
 })
 
 // Socket.IO logic
