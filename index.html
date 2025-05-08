@@ -22,6 +22,11 @@
   
   <!--Local scripts for sending to server-->
   <script>
+    fetch('https://applied-programming.onrender.com/init', {
+      method: 'GET',
+      credentials: 'include',
+    });
+    
     const socket = io("https://applied-programming.onrender.com", { withCredentials: true });
 
     let username = prompt("Enter your username:");
@@ -58,7 +63,7 @@
 
       const avatar = document.createElement('img');
       avatar.classList.add('user-avatar');
-      avatar.src = 'images/OBEYECHELON.PNG';
+      avatar.src = 'images/OBEYECHELON.png';
       avatar.alt = 'user avatar';
 
       const messageWrapper = document.createElement('div');

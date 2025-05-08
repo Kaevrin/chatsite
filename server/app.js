@@ -35,6 +35,10 @@ app.use((req, res, next) => {
   next();
 });
 
+app.get('/init', (req, res) => {
+  res.sendStatus(204); // No content — it's just used to set cookies
+});
+
 // Serve static files (like your frontend)
 app.use(express.static('public'));
 
