@@ -22,7 +22,7 @@
   
   <!--Local scripts for sending to server-->
   <script>
-    const socket = io("https://applied-programming.onrender.com");
+    const socket = io("https://applied-programming.onrender.com", { withCredentials: true });
 
     let username = prompt("Enter your username:");
     if (!username) username = "Anonymous";
