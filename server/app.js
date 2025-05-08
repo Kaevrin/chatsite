@@ -17,12 +17,10 @@ const io = new Server(server, {
 
 
 // Serve static files (like your frontend)
-app.use(express.json());
-app.use(routes);
+app.use(cookieParser());
 
-app.get("/", (request, response) => {
-  response.cookie("Hello", "world", {maxAge: 60000});
-  response.status(201).send({ msg: "Hello"});
+app.get('/', function(req, resp) {
+  resp.cookie('myFirstCookie', 'looks good', { maxAge: 60000 })
 })
 
 // Socket.IO logic
