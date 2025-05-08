@@ -20,13 +20,9 @@
 <!-- Call on server code-->
   <script src="https://applied-programming.onrender.com/socket.io/socket.io.js"></script>
   
-  <!--Local scripts for sending to server-->
+  <!--Local scripts for communicating with server-->
   <script>
-    fetch('https://applied-programming.onrender.com/init', {
-      method: 'GET',
-      credentials: 'include',
-    });
-    
+
     const socket = io("https://applied-programming.onrender.com", { withCredentials: true });
 
     let username = prompt("Enter your username:");

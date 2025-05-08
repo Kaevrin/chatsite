@@ -14,30 +14,7 @@ const io = new Server(server, {
   }
 });
 
-// Middleware to parse cookies
-app.use(cookieParser());
 
-// Set a cookie if it doesn't exist
-app.use((req, res, next) => {
-  if (!req.cookies.user_id) {
-    const newId = crypto.randomUUID();
-    console.log("Setting new user_id cookie:", newId);
-    res.cookie('user_id', newId, {
-      httpOnly: true,
-      maxAge: 1000 * 60 * 60 * 24 * 30, // 30 days
-      sameSite: 'None',
-      secure: true,
-    });
-    req.user_id = newId;
-  } else {
-    req.user_id = req.cookies.user_id;
-  }
-  next();
-});
-
-app.get('/init', (req, res) => {
-  res.sendStatus(204); // No content — it's just used to set cookies
-});
 
 // Serve static files (like your frontend)
 app.use(express.static('public'));
