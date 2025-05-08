@@ -20,14 +20,12 @@ const io = new Server(server, {
 
 // Socket.IO logic
 io.on('connection', (socket) => {
-  console.log('A user connected');
-
   let userId = null;
   let username = "Anonymous";
 
-  socket.on('set user info', (username, userId) => {
-    socket.username = username;
-    socket.userId = userId;
+  socket.on('set user info', (data) => {
+    username = data.username || "Anonymous";
+    userId = data.userId || null;
     console.log(`User ${username} (${userId}) has joined`);
     io.emit('welcome message', { username });
   });
@@ -37,7 +35,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('disconnect', () => {
-    console.log(`${userId} disconnected`);
+    console.log(`${username} disconnected`);
   });
 });
 
