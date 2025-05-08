@@ -22,19 +22,22 @@
   
   <!--Local scripts for communicating with server-->
   <script>
-    fetch("https://applied-programming.onrender.com/", {
-    method: "GET",
-    credentials: "include", // Crucial for receiving cookies cross-origin
-    })
-    .then(res => console.log("Cookie setup response:", res.status))
-    .catch(err => console.error("Cookie setup error:", err));
+    let userId = localStorage.getItem('user_id');
+    if (!userId) {
+      userId = crypto.randomUUID();
+      localStorage.setItem('user_id', userId);
+      console.log("Generated new user ID:", userId);
+    }
+    else {
+      console.log("Loaded existing user ID:", userId);
+    }
 
 
-    const socket = io("https://applied-programming.onrender.com", { withCredentials: true });
+    const socket = io("https://applied-programming.onrender.com", { withCredentials: false });
 
-    let username = prompt("Enter your username:");
-    if (!username) username = "Anonymous";
-    socket.emit('set username', username);
+    let username = prompt("Enter your username:") || "Anonymous";
+
+    socket.emit('set user info', {userId, username});
 
     socket.on('welcome message', function(data) {
     console.log("Received welcome message", data); // ✅ debug

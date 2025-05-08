@@ -17,31 +17,17 @@ const io = new Server(server, {
 
 
 // Serve static files (like your frontend)
-app.use(cookieParser());
-const cors = require('cors');
-
-app.use(cors({
-  origin: 'https://kaevrin.github.io',
-  credentials: true
-}));
-
-app.get('/', function(req, resp) {
-  resp.cookie('myFirstCookie', 'looks good', {
-    maxAge: 60000,
-    sameSite: 'None',
-    secure: true
-});
-  resp.send('Cookie sent');
-})
 
 // Socket.IO logic
 io.on('connection', (socket) => {
   console.log('A user connected');
+
+  let userId = null;
   let username = "Anonymous";
 
-  socket.on('set username', (name) => {
-    username = name;
-    console.log(`${username} has joined the chat`);
+  socket.on('set user info', (data) => {
+    userId = data.userId;
+    console.log(`User connected: ${username} (${userId})`);
     io.emit('welcome message', { username });
   });
 
@@ -50,7 +36,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('disconnect', () => {
-    console.log(`${username} disconnected`);
+    console.log(`${userId} disconnected`);
   });
 });
 
