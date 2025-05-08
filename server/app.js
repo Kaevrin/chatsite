@@ -26,8 +26,9 @@ io.on('connection', (socket) => {
   let username = "Anonymous";
 
   socket.on('set user info', (data) => {
-    userId = data.userId;
-    console.log(`User connected: ${username} (${userId})`);
+    socket.username = username;
+    socket.userId = userId;
+    console.log(`User ${username} (${userId}) has joined`);
     io.emit('welcome message', { username });
   });
 

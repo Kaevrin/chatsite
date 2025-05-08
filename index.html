@@ -22,22 +22,22 @@
   
   <!--Local scripts for communicating with server-->
   <script>
-    let userId = localStorage.getItem('user_id');
+    let userId = localStorage.getItem('userId');
+    let username = localStorage.getItem('username');
+    
     if (!userId) {
       userId = crypto.randomUUID();
-      localStorage.setItem('user_id', userId);
+      localStorage.setItem('userId', userId);
       console.log("Generated new user ID:", userId);
     }
-    else {
-      console.log("Loaded existing user ID:", userId);
+    if (!username) {
+      username = prompt("Enter your username:") || "Anonymous";
+      localStorage.setItem('username', username);
     }
 
+    const socket = io("https://applied-programming.onrender.com", { withCredentials: true });
 
-    const socket = io("https://applied-programming.onrender.com", { withCredentials: false });
-
-    let username = prompt("Enter your username:") || "Anonymous";
-
-    socket.emit('set user info', {userId, username});
+    socket.emit('set user info', {username, userId});
 
     socket.on('welcome message', function(data) {
     console.log("Received welcome message", data); // ✅ debug
