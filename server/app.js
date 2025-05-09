@@ -33,7 +33,7 @@ io.on('connection', (socket) => {
 
   //receive and send chat messages
   socket.on('chat message', (msg) => {
-    const maxlength = 250;
+    const maxlength = 2000;
     msgOutput = msg.slice(0, maxlength);
     io.emit('chat message', { username, message: msgOutput });
   });
