@@ -35,7 +35,7 @@ io.on('connection', (socket) => {
   socket.on('chat message', (msg) => {
     const maxlength = 250;
     msgOutput = msg.slice(0, maxlength);
-    io.emit('chat message', { username, message: msg });
+    io.emit('chat message', { username, message: msgOutput });
   });
 
   //Send disconnect message to active users
