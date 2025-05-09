@@ -31,7 +31,7 @@ io.on('connection', (socket) => {
     io.emit('welcome message', { username });
   });
 
-  //receive and send chat messages
+  //receive and send chat messages, has character limit value.
   socket.on('chat message', (msg) => {
     const maxlength = 2000;
     msgOutput = msg.slice(0, maxlength);
