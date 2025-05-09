@@ -56,7 +56,16 @@
     messages.appendChild(messageWrapper);
     });
     
-
+    socket.on('disconnect message', function(data) {
+      console.log("Received disconnect message", data); // ✅ debug
+      const item = document.createElement('li');
+      item.classList.add('message-content');
+      item.textContent = `${data.username} has left the chat`;
+      const messageWrapper = document.createElement('div');
+      messageWrapper.classList.add('message-wrapper');
+      messageWrapper.appendChild(item);
+      messages.appendChild(messageWrapper);
+      });
 
     form.addEventListener('submit', function(e) {
       e.preventDefault();
