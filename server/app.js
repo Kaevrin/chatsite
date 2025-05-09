@@ -23,6 +23,7 @@ io.on('connection', (socket) => {
   let userId = null;
   let username = "Anonymous";
 
+  //set user info and send welcome message to all users
   socket.on('set user info', (data) => {
     username = data.username || "Anonymous";
     userId = data.userId || null;
@@ -30,16 +31,19 @@ io.on('connection', (socket) => {
     io.emit('welcome message', { username });
   });
 
+  //receive and send chat messages
   socket.on('chat message', (msg) => {
     io.emit('chat message', { username, message: msg });
   });
 
+  //Send disconnect message to active users
   socket.on('disconnect', () => {
     console.log(`${username} disconnected`);
     io.emit('disconnect message', { username });
   });
 });
 
+//Confirm server booted
 server.listen(3000, () => {
   console.log('Server running at http://localhost:3000');
 });

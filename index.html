@@ -27,24 +27,26 @@
     const form = document.getElementById('form');
     const input = document.getElementById('input');
     const messages = document.getElementById('messages');
-    
+    //check if they have an ID already, otherwise generate a new one
     if (!userId) {
       userId = crypto.randomUUID();
       localStorage.setItem('userId', userId);
       console.log("Generated new user ID:", userId);
     }
+    //check if they have a username already, otherwise prompt one
     if (!username) {
       username = prompt("Enter your username:") || "Anonymous";
       localStorage.setItem('username', username);
     }
-
+    //get server script from the backend
     const socket = io("https://applied-programming.onrender.com", { withCredentials: true });
 
+    //log into the server with username and ID
     socket.on('connect', () => {
       socket.emit('set user info', { username, userId });
     });
 
-
+    //Welcome the user
     socket.on('welcome message', function(data) {
     console.log("Received welcome message", data); // ✅ debug
     const item = document.createElement('li');
@@ -55,7 +57,7 @@
     messageWrapper.appendChild(item);
     messages.appendChild(messageWrapper);
     });
-    
+    //let others know when a user leaves
     socket.on('disconnect message', function(data) {
       console.log("Received disconnect message", data); // ✅ debug
       const item = document.createElement('li');
@@ -66,7 +68,7 @@
       messageWrapper.appendChild(item);
       messages.appendChild(messageWrapper);
       });
-
+    //send a message to the server
     form.addEventListener('submit', function(e) {
       e.preventDefault();
       if (input.value) {
@@ -74,7 +76,7 @@
         input.value = '';
       }
     });
-
+    //Assemble the chat message
     socket.on('chat message', function(data) {
       
       const item = document.createElement('li');
