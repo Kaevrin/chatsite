@@ -1,8 +1,6 @@
 const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
-const cookieParser = require('cookie-parser');
-const crypto = require('crypto');
 
 const app = express();
 const server = http.createServer(app);
