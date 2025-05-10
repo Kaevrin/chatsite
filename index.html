@@ -46,7 +46,7 @@
 
 
     socket.on('welcome message', function(data) {
-    console.log("Received welcome message", data); // ✅ debug
+    console.log("Received welcome message", data);
     const item = document.createElement('li');
     item.classList.add('message-content');
     item.textContent = `${data.username} has joined the chat`;

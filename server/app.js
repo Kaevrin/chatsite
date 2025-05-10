@@ -1,22 +1,17 @@
 const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
-const cookieParser = require('cookie-parser');
-const crypto = require('crypto');
 
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "https://kaevrin.github.io", // You can restrict this to your domain later
+    origin: "https://kaevrin.github.io",
     methods: ["GET", "POST"],
     credentials: true,
   }
 });
 
-
-
-// Serve static files (like your frontend)
 
 // Socket.IO logic
 io.on('connection', (socket) => {
